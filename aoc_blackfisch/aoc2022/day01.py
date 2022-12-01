@@ -6,22 +6,21 @@ https://adventofcode.com/2022/day/1
 from aocd import data
 
 
-def get_elves_calories(data):
-    elves_calories = [[int(cal) for cal in elf.splitlines()]
+def get_elves_calories(data: str):
+    elves_calories = [sum(map(int, elf.splitlines()))
                       for elf in data.split('\n\n')]
-    elves_calories = [sum(cal_list) for cal_list in elves_calories]
 
     return elves_calories
 
 
 ### Solutions ###
 
-def part_a(data):
+def part_a(data: str):
     """Solution for part A"""
     return max(get_elves_calories(data))
 
 
-def part_b(data):
+def part_b(data: str):
     """Solution for part B"""
     elves_calories = get_elves_calories(data)
     elves_calories.sort(reverse=True)
