@@ -36,13 +36,11 @@ provides correct answers for each of the puzzle test cases!)
 
 from importlib import import_module
 
+
 def solve(year, day, data):
-    # print(year, day)
-    mod_name = "aoc_blackfisch.aoc{0}.day{1:02d}".format(year, day)
-    # print(mod_name)
+    """Solver function, calling solution script for specific year and day."""
+    mod_name = f"aoc_blackfisch.aoc{year}.day{day:02d}"
     mod = import_module(mod_name)
-    # print(mod)
-    a = mod.part_a(data)
-    # print(a)
-    b = mod.part_b(data)
-    return a, b
+    solution_a = mod.part_a(data)
+    solution_b = mod.part_b(data)
+    return solution_a, solution_b

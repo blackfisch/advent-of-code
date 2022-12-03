@@ -3,10 +3,11 @@ AoC 2022 Day 1: Calorie Counting
 https://adventofcode.com/2022/day/1
 """
 
-from aocd import data
+from aocd import data as input_data
 
 
 def get_elves_calories(data: str):
+    """Return calories for an elf."""
     elves_calories = [sum(map(int, elf.splitlines()))
                       for elf in data.split('\n\n')]
 
@@ -28,5 +29,5 @@ def part_b(data: str):
 
 
 if __name__ == '__main__':
-    print(f'Part A: {part_a(data)}')
-    print(f'Part B: {part_b(data)}')
+    print(f'Part A: {part_a(input_data)}')
+    print(f'Part B: {part_b(input_data)}')
