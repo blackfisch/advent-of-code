@@ -6,7 +6,7 @@ https://adventofcode.com/2022/day/3
 from aocd import data as input_data
 
 
-class ItemPriotity:
+class ItemPriotity:  # pylint: disable=too-few-public-methods
     """Item Priorities"""
     items = dict(
         zip(
