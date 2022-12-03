@@ -5,6 +5,7 @@ https://adventofcode.com/2022/day/2
 
 from aocd import data
 
+
 class RPS:
     """Rock Paper Scissors class"""
     ROCK = 1
@@ -16,26 +17,22 @@ class RPS:
     LOSE = 0
 
     RPS_VALUES = {
-        "A": ROCK,  
-        "B": PAPER,  
-        "C": SCISSORS,  
-
-        "X": ROCK,  
-        "Y": PAPER,  
-        "Z": SCISSORS
+        "A": ROCK,
+        "B": PAPER,
+        "C": SCISSORS
     }
 
-    def __init__(self, data: str):
-        self.data = self.parse_data(data)
+    def __init__(self):
+        pass
 
     def parse_data(self, data: str) -> list:
         """Parse data"""
 
-        return [list(map(lambda el: self.RPS_VALUES.get(el, -1), game.split(" ")))
+        return [tuple(map(lambda el: self.RPS_VALUES.get(el, -1), game.split(" ")))
                 for game in data.splitlines()]
 
     def winner_points(self, user_a: int, user_b: int) -> int:
-        win_points = self.LOSE 
+        win_points = self.LOSE
 
         if user_a == user_b:
             win_points = self.DRAW
@@ -46,23 +43,55 @@ class RPS:
 
         return (win_points + user_b)
 
-
-    def solve_a(self) -> int:
+    def solve_a(self, data: str) -> int:
         """RPS solver part A"""
+        self.RPS_VALUES.update({
+            "X": self.ROCK,
+            "Y": self.PAPER,
+            "Z": self.SCISSORS
+        })
+
+        self.data = self.parse_data(data)
         return sum(self.winner_points(*pair) for pair in self.data)
+
+    def solve_b(self, data: str) -> int:
+        """RPS solver part B"""
+        self.RPS_VALUES.update({
+            "X": self.LOSE,
+            "Y": self.DRAW,
+            "Z": self.WIN
+        })
+        self.data = self.parse_data(data)
+
+        def calc_move(user_a: int, goal: int) -> int:
+            ret = 0
+            if goal == self.LOSE:
+                ret = user_a - 1
+            elif goal == self.DRAW:
+                ret = user_a
+            elif goal == self.WIN:
+                ret = user_a + 1
+
+            if ret <= 0:
+                ret = self.RPS_VALUES["C"]
+            elif ret > self.RPS_VALUES["C"]:
+                ret = self.RPS_VALUES["A"]
+
+            return user_a, ret
+
+        return sum([self.winner_points(*calc_move(*pair)) for pair in self.data])
 
 
 ### Solutions ###
 
 def part_a(data: str):
     """Solution for part A"""
-    return RPS(data).solve_a()
-
+    return RPS().solve_a(data)
 
 
 def part_b(data: str):
     """Solution for part B"""
-    pass
+    return RPS().solve_b(data)
 
 
 if __name__ == '__main__':
