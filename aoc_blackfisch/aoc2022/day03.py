@@ -3,10 +3,11 @@ AoC 2022 Day 3: Rucksack Reorganization
 https://adventofcode.com/2022/day/3
 """
 
-from aocd import data
+from aocd import data as input_data
 
 
 class ItemPriotity:
+    """Item Priorities"""
     items = dict(
         zip(
             list("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"),
@@ -16,6 +17,7 @@ class ItemPriotity:
 
     @staticmethod
     def get_priority(char: str):
+        """Return the priority for a character"""
         return ItemPriotity.items.get(char)
 
 
@@ -69,5 +71,5 @@ def part_b(data: str):
 
 
 if __name__ == '__main__':
-    print(f'Part A: {part_a(data)}')
-    print(f'Part B: {part_b(data)}')
+    print(f'Part A: {part_a(input_data)}')
+    print(f'Part B: {part_b(input_data)}')
